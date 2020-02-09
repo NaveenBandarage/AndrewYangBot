@@ -25,8 +25,13 @@ userTweet = userName[0]
 # api.update_status('@andrewyang Humanity First', userTweet.id)
 
 #helpful for finding who follows me back or others.
-user = api.get_user('cnn')
-
-api.update_status('Hey, @cnn you need to learn some more about ubi! https://www.yang2020.com/policies/', [])
+#I know this isn't productive but  its just an inital stage.
+user = api.get_user('foxnews')
+user = "FoxNews "
+initalPart = "Hey "
+symbol = "@"
+message = "looks like you need to learn some more about ubi! https://www.yang2020.com/policies/"
+finalMessage = initalPart + symbol  + user + message
+api.update_status(finalMessage)
 # for friend in user.friends():
 #    print(friend.screen_name)
