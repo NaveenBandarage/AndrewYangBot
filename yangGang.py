@@ -36,6 +36,17 @@ userTweet = userName[0]
 # for friend in user.friends():
 #    print(friend.screen_name)
 listOfUsers = ['', '', '', '', ]
-users = api.trends_place(1)
-print(users[0]["trends"][0]["name"])
+trendingTopic = api.trends_place(1)
+i = 0
 
+
+
+#loop to iterate trending topics 
+x =0
+for x in range(0, 5):
+    print(trendingTopic[0]["trends"][x]["name"])
+    trendingTopicTweet = trendingTopic[0]["trends"][x]["name"]
+    message = trendingTopicTweet + "might be trending but don't forget about @andrewyang! #YangGang, #HumanityFirst"
+    print("Tweet being sent out:", message)
+    api.update_status(message)
+    x+=1
