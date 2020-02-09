@@ -1,6 +1,6 @@
 import random 
 import tweepy 
-
+import json 
 #reading line by line. 
 read = open("YangKey.txt", "r")
 consumerKey = read.readline().strip()
@@ -26,12 +26,16 @@ userTweet = userName[0]
 
 #helpful for finding who follows me back or others.
 #I know this isn't productive but  its just an inital stage.
-user = api.get_user('foxnews')
-user = "FoxNews "
-initalPart = "Hey "
-symbol = "@"
-message = "looks like you need to learn some more about ubi! https://www.yang2020.com/policies/"
-finalMessage = initalPart + symbol  + user + message
-api.update_status(finalMessage)
+# user = api.get_user('foxnews')
+# user = "FoxNews "
+# initalPart = "Hey "
+# symbol = "@"
+# # message = "looks like you need to learn some more about ubi! https://www.yang2020.com/policies/"
+# finalMessage = initalPart + symbol  + user + message
+# api.update_status(finalMessage)
 # for friend in user.friends():
 #    print(friend.screen_name)
+listOfUsers = ['', '', '', '', ]
+users = api.trends_place(1)
+print(users[0]["trends"][0]["name"])
+
