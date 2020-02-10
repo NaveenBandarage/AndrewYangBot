@@ -63,7 +63,7 @@ today = date.today()
 dateArray =["2020-2-10"]
 todaysDate = datetime.datetime.strptime(str(today), "%Y-%m-%d").date()
 baseDate = datetime.datetime.strptime(dateArray[0], "%Y-%m-%d").date()
-differenceDates =  (baseDate - todaysDate).days
+differenceDates =  (todaysDate -baseDate ).days
 print("The difference in dates is: ", differenceDates)
 
 # #checking if yang follows us. 
@@ -119,7 +119,7 @@ class MyStreamListener(tweepy.StreamListener):
 
     def on_status(self, tweet):
         print(f"{tweet.user.name}:{tweet.text}")
-        tweet.favorite
+        tweet.favorite()
        
  
 
@@ -129,5 +129,4 @@ class MyStreamListener(tweepy.StreamListener):
 
 tweets_listener = MyStreamListener(api)
 stream = tweepy.Stream(api.auth, tweets_listener)
-stream.filter(track=["Andrew Yang", "Yang Gang",], languages=["en"])
-
+stream.filter(track=["Andrew Yang", "Yang Gang","Yang2020", "🧢"], languages=["en"])
