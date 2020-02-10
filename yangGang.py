@@ -3,6 +3,8 @@ import tweepy
 import json 
 from datetime import date
 import datetime
+from time import sleep
+
 
 #reading line by line. 
 read = open("YangKey.txt", "r")
@@ -54,21 +56,7 @@ i = 0
 #     api.update_status(message)
 #     x+=1
 
-#checking if andrew yang follows us. 
 
-# temporary solution
-# me = api.me()
-# yang = api.get_user('AndrewYang')
-# yangList = api.followers('AndrewYang')
-# print(yangList.__sizeof__)
-# for x in range(0, 2):
-#     if me in yangList:
-#      print("FOLLOWING")
-#     else:
-#         print("NOT FOLLOWING")
-
-# me = api.get_user(screen_name='YangBurner')
-# print(api.show_friendship(user,me ))
 
 #Number of days since andrew followed me 
 today = date.today()
@@ -78,11 +66,19 @@ baseDate = datetime.datetime.strptime(dateArray[0], "%Y-%m-%d").date()
 differenceDates =  (baseDate - todaysDate).days
 print("The difference in dates is: ", differenceDates)
 
+# #checking if yang follows us. 
+# relation = api.show_friendship(source_screen_name = 'yangburner',target_screen_name = 'andrewyang')
+# yangFollowing = relation[1].following
+# if yangFollowing == False:
+#     print("Yang is not following me")
+#     message = "Day " + str(differenceDates) +" of @andrewyang not following us! #yanggang"
 
-relation = api.show_friendship(source_screen_name = 'yangburner',target_screen_name = 'andrewyang')
-yangFollowing = relation[1].following
-if yangFollowing == False:
-    print("Yang is not following me")
-    message = "Day " + str(differenceDates) +" of @andrewyang not following us! #yanggang"
+#     api.update_status(message)
 
-    api.update_status(message)
+# #retweeting what Andrew yang says. 
+yangTweets = api.user_timeline(screen_name = "andrewyang")
+
+for currentTweet in yangTweets:
+    if currentTweet.text[0:2] != "RT":
+        api.retweet(currentTweet.id_str)
+print("Finished rewtweeting")
