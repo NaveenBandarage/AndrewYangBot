@@ -75,10 +75,59 @@ print("The difference in dates is: ", differenceDates)
 
 #     api.update_status(message)
 
-# #retweeting what Andrew yang says. 
-yangTweets = api.user_timeline(screen_name = "andrewyang")
+# # #retweeting what Andrew yang says. 
+# yangTweets = api.user_timeline(screen_name = "andrewyang")
 
-for currentTweet in yangTweets:
-    if currentTweet.text[0:2] != "RT":
-        api.retweet(currentTweet.id_str)
-print("Finished rewtweeting")
+# for currentTweet in yangTweets:
+#     if currentTweet.text[0:2] != "RT":
+#         api.retweet(currentTweet.id_str)
+# print("Finished rewtweeting")
+
+#mainstream media tweet outs. Can and will add more later.
+# mediaArray = ['fox', 'cnn', 'MSNBC', 'CBSNews', 'abc', 'washingtonpost', 'nytimes', 'skynews', 'time', 'guardian' ]
+# symbol ='@'
+# # Either leave a custom message meaning user input for each message or just pass a message 
+# mediaMessage= input("Write your Yang related tweet here: ")
+# for x in mediaArray:
+#         message = symbol+x +" " + mediaMessage
+#         sleep(10)
+#         api.update_status(status=message)
+
+# #AutoLike anything Andrew has tweeted. 
+# yangTweets = api.user_timeline(screen_name = "andrewyang")
+
+# for currentTweet in yangTweets:
+#         api.create_favorite(currentTweet.id)
+# #subject to timing out
+# print("Finished liking")
+
+
+# #Taken from realpython
+# #Goes through all my mentions and retweets.
+# tweets = api.mentions_timeline()
+# for tweet in tweets:
+#     tweet.favorite()
+#     tweet.user.follow()
+#     tweet.retweet()
+
+
+#Tracking tweets and favouriting them. 
+class MyStreamListener(tweepy.StreamListener):
+    def __init__(self, api):
+        self.api = api
+        self.me = api.me()
+
+    def on_status(self, tweet):
+        print(f"{tweet.user.name}:{tweet.text}")
+        tweet.favorite
+       
+ 
+
+    def on_error(self, status):
+        print("Error detected")
+
+
+tweets_listener = MyStreamListener(api)
+stream = tweepy.Stream(api.auth, tweets_listener)
+stream.filter(track=["Andrew Yang", "Yang Gang",], languages=["en"])
+
